@@ -1,0 +1,5 @@
+PORT = 3000
+DATABASE = <link to mongodb database>
+JWT_KEY = 
+JWT_AUTH = 
+JWT_REFRESH = 
