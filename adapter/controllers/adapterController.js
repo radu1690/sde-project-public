@@ -56,6 +56,7 @@ async function genericRequest(name, request, isSearch){
         query = TMDB_endpoint + "search/" + request + "?api_key=" + TMDB_key + "&query=" + name;
     }else{
         query = TMDB_endpoint + request + "popular" + "?api_key=" + TMDB_key;
+        // console.log(query)
     }
     //console.log(query);
     let response = await axios.get(query)
@@ -84,9 +85,11 @@ async function genericRequest(name, request, isSearch){
             if(request == movies_request || element.media_type == "movie"){
                 entry.title = element.title;
                 entry.type = "movie";
+                entry.date = element.release_date;
             }else if(request == series_request || element.media_type == "tv"){
                 entry.title = element.name;
                 entry.type = "tv";
+                entry.date = element.first_air_date;
             }else{
                 //if something went wrong
                 let error;
@@ -180,6 +183,7 @@ async function getSeasons(id, n_season){
         e.episode_number = episode.episode_number;
         e.name = episode.name;
         e.overview = episode.overview;
+        e.image = TMDB_image_base + episode.still_path;
         toReturn.episodes.push(e);
     })
 
@@ -320,8 +324,10 @@ async function getSimilar(id, type){
         entry.type = type;
         if(type == "movie"){
             entry.title = media.title;
+            entry.date = media.release_date;
         }else{
             entry.title = media.name;
+            entry.date = media.first_air_date;
         }
         results.push(entry);
     })

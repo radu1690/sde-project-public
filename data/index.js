@@ -24,16 +24,16 @@ app.use(route, mediaRoutes, reviewRoutes);
 
 
 app.get('*', function (req, res) {
-    res.status(404).json({ "errors": [{ "msg": req.method + " on " + req.originalUrl + " is not defined" }] })
+    res.status(404).json({success: false, "errors": [{ "msg": req.method + " on " + req.originalUrl + " is not defined" }] })
 })
 app.post('*', function (req, res) {
-    res.status(404).json({ "errors": [{ "msg": req.method + " on " + req.originalUrl + " is not defined" }] })
+    res.status(404).json({ success: false, "errors": [{ "msg": req.method + " on " + req.originalUrl + " is not defined" }] })
 })
 app.put('*', function (req, res) {
-    res.status(404).json({ "errors": [{ "msg": req.method + " on " + req.originalUrl + " is not defined" }] })
+    res.status(404).json({ success: false, "errors": [{ "msg": req.method + " on " + req.originalUrl + " is not defined" }] })
 })
 app.delete('*', function (req, res) {
-    res.status(404).json({ "errors": [{ "msg": req.method + " on " + req.originalUrl + " is not defined" }] })
+    res.status(404).json({ success: false, "errors": [{ "msg": req.method + " on " + req.originalUrl + " is not defined" }] })
 })
 
 app.listen(port,'0.0.0.0');

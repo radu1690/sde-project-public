@@ -3,12 +3,11 @@ const router = express.Router({mergeParams: true});
 const {check, validationResult} = require("express-validator/check");
 var orchestrationController = require("../controllers/orchestrationController");
 const jwt = require('jsonwebtoken');
-
 let authSecret = process.env.JWT_AUTH;
 
 //get ip and token
 const middleware = (req, res, next) => {
-    req.body.ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+    req.body.ip = req.connection.remoteAddress;
     req.params.ip = req.body.ip;
     if (req.body.ip.substr(0, 7) == "::ffff:") {
         req.body.ip = req.ip.substr(7);
@@ -26,7 +25,7 @@ const authenticateJWT = (req, res, next) => {
     //console.log(req.headers);
     if (authHeader) {
         const token = authHeader.split(' ')[1];
-        
+        // console.log(token)
         jwt.verify(token, authSecret, (err, user) => {
             if (err) {
                 console.log(err)
