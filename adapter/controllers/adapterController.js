@@ -284,6 +284,7 @@ async function getRecommendation(request){
         m.title = movie.title;
         m.popularity = movie.popularity;
         m.genre_ids = movie.genre_ids;
+        m.date = movie.release_date;
         m.type = "movie";
         results.push(m);
     })
@@ -298,6 +299,7 @@ async function getRecommendation(request){
         m.popularity = tv.popularity;
         m.genre_ids = tv.genre_ids;
         m.type = "tv";
+        m.date = tv.first_air_date;
         results.push(m);
     })
 

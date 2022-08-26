@@ -156,6 +156,21 @@ router.get("/getUserPage/:id", middleware, authenticateJWT, (req, res) => {
     })
 });
 
+router.get("/getPageByUsername/:username", middleware, authenticateJWT, (req, res) => {
+    let request = {};
+    request.username = req.params.username;
+    orchestrationController.getPageByUsername(request)
+    .then(result => {
+        //console.log(result)
+        res.status(200).json({success: true, result: result});
+    })
+    .catch(error =>{
+        console.error("Orchestration.js error: getUserPage");
+        console.error(error);
+        res.status(error.code).json({success: false, errors: [{"msg": error.msg}]})
+    })
+});
+
 router.get("/getMediaPage/:type/:mediaId", middleware, authenticateJWT, (req, res) => {
     let request = {};
     request.userId = req.params.userId;

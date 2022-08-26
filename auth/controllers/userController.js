@@ -137,6 +137,23 @@ async function getUserName(request){
     return toReturn;
 }
 
+async function getUserByUsername(request){
+    const filter = {
+        username: request.username
+    };
+    let user = await User.findOne(filter)
+    .catch(error => {
+        throwError("Not found", 404);
+    })
+    if(!user){
+        throwError("Not found", 404);
+    }
+    let toReturn = {};
+    toReturn._id = user._id;
+    toReturn.username = user.username;
+    return toReturn;
+}
+
 
 const getHashedPassword = (password) => {
     const sha256 = crypto.createHash('sha256');
@@ -169,3 +186,4 @@ module.exports.logoutUser = logoutUser;
 module.exports.deleteUser = deleteUser;
 module.exports.getUserName = getUserName;
 module.exports.refreshToken = refreshToken;
+module.exports.getUserByUsername = getUserByUsername;

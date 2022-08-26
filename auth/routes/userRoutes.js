@@ -144,6 +144,30 @@ router.get("/getUserName/:userId", (req, res) => {
     
 });
 
+router.get("/getUser/:username", (req, res) => {
+    let request = {};
+    request.username = req.params.username;
+    userController.getUserByUsername(request).then(result => {
+        if(result){
+            res.status(200).json({success: true, result: result});
+        }else{
+            res.status(404).json({success: false, errors: [{"msg": "No user found"}]})
+        }
+        
+    }).catch(error =>{
+        console.error("userRoutes.js error: getUser");
+        console.error(error);
+        if(error.code){
+            console.log(error)
+            res.status(error.code).json({success: false, errors: [{"msg": error.msg}]})
+        }else{
+            res.status(500).json({success: false, errors: [{"msg": error.errmsg}]})
+        }
+        
+    })
+    
+});
+
 router.post("/refreshToken", [
     check("token", "token is not defined").exists(),
     check("ip", "ip is not defined").exists()

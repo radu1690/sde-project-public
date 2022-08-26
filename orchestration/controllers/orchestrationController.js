@@ -116,6 +116,21 @@ async function getUserPage(request){
 
 }
 
+async function getPageByUsername(request){
+    let user = await axios.get(`${AUTH_ENDPOINT}getUser/${request.username}`).catch(error => {
+        if(error.code == "ECONNREFUSED"){
+            throwError("AUTH service unavailable")
+        }
+        if (error.response) {
+           throwError(error.response.data.errors[0].msg, error.response.status)
+          }
+        });
+    let r = {};
+    r.userId = user.data.result._id;
+    // console.log(r);
+    return getUserPage(r);
+}
+
 async function getMediaPage(request){
     let userExists = await axios.get(DATA_ENDPOINT+"userExists/"+request.userId)
         .catch(err => throwError("Data service unavailable"));
@@ -356,4 +371,4 @@ module.exports.searchMovies = searchMovies;
 module.exports.searchSeries = searchSeries;
 module.exports.popularMovies = popularMovies;
 module.exports.popularSeries = popularSeries;
-
+module.exports.getPageByUsername = getPageByUsername;
