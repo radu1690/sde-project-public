@@ -11,4 +11,7 @@
 | Data Service| [Heroku link](https://data-service-sde.herokuapp.com/v1) | [Apiary Link](https://dataservice.docs.apiary.io/#) |
 | Orchestration Service| [Heroku link](https://orchestration-service-sde.herokuapp.com/v1) | [Apiary Link](https://orchestrationservice.docs.apiary.io/#) |
 
-If you want to run the project locally, for each service create a .env file from the envTemplate.txt and add all the necessary environment variables.
+If you want to run the project locally, for each service create a .env file from the envTemplate.txt and add all the necessary environment variables (check envTemplate.txt in each service folder).  
+
+## Heroku
+Heroku will no longer provide free hosting, therefore the endpoints will stop working.
